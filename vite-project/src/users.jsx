@@ -17,7 +17,7 @@ export default function Users() {
       }
 
       try {
-        const response = await fetch('http://localhost:8080/users', {
+        const response = await fetch('https://vstack.onrender.com/users', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,

@@ -18,7 +18,7 @@ export default function Delete() {
         };
 
         try {
-            const response = await fetch(`http://localhost:8080/delete/`, {
+            const response = await fetch(`https://vstack.onrender.com/delete/`, {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),
