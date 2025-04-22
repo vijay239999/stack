@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 8080;
 console.log('Port:', process.env.PORT);
 const app = express();
 app.use(cors({
-    origin: 'https://vstack.onrender.com',
+    origin: 'https://vstack-675k.onrender.com',
     credentials: true,
   }));
   
