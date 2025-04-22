@@ -7,5 +7,6 @@ export default defineConfig({
     server: {
       host: '0.0.0.0', // Bind to external interface
       port: 5173,      // Ensure the correct port is used
+      allowedHosts: ['vstack-675k.onrender.com'],
     },  
 })
