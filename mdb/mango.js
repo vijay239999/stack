@@ -9,7 +9,11 @@ dotenv.config();
 const PORT = process.env.PORT || 8080;
 console.log('Port:', process.env.PORT);
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: 'https://vstack.onrender.com',
+    credentials: true,
+  }));
+  
 app.use(express.json());
 const mongo_url = process.env.MANGO;
 console.log('Mongo URL:', process.env.MANGO);
