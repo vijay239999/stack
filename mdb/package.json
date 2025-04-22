@@ -5,7 +5,7 @@
   "main": "mango.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node mango.js"
+    "start": "npx nodemon mango.js"
   },
   "keywords": [],
   "author": "",
