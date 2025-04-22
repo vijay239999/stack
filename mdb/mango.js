@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors'
-import test from './schemas/students.js';
+// import test from './schemas/students.js';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import tests from './schemas/students.js';
@@ -16,7 +16,7 @@ console.log('Mongo URL:', process.env.MANGO);
 
 // const mongo_url = "mongodb://localhost:27017/test";
 
-mongoose.connect(mongo_url, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongo_url)
     .then(() => console.log('MongoDB connected successfully'))
     .catch((err) => console.error('Database connection error:', err));
 app.listen(PORT, () => {
@@ -66,7 +66,8 @@ app.post('/login', async (req, res) => {
         if (user.password !== password) {
             return res.status(401).json({ error: 'Invalid password' });
         }else{
-            const token = jwt.sign({ username: user.username }, 'zxcvbnm', { expiresIn: '30s' });
+            const token = jwt.sign({ username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            // const token = jwt.sign({ username: user.username }, 'zxcvbnm', { expiresIn: '30s' });
             console.log("token", token)
             res.status(200).json({ message: 'Login successful', token });
         }
@@ -109,7 +110,8 @@ app.post('/register', async (req, res) => {
     }
 });
 
-app.get('/users', authenticateToken, authenticateRoles, async (req, res) => {
+app.get('/users', authenticateToken, authenticateRoles(['admin', 'user']), async (req, res) => {
+// app.get('/users', authenticateToken, authenticateRoles, async (req, res) => {
     try {
         const users = await test.find({}, { password: 0 });
         res.status(200).json(users);

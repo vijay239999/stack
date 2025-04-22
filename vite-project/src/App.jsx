@@ -6,7 +6,7 @@ import Delete from './delete.jsx'
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Home from './home.jsx';
 import Register from './registration.jsx';
-import Userdash from './userdash.jsx'
+import Userdash from './userdash.jsx';
 const App = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
