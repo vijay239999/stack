@@ -52,13 +52,13 @@ export default function Login({ setIsLoggedIn }) {
   return (
     <div style={backgroundStyle}>
       
-     <audio 
+     {/* <audio 
         src="https://music.apple.com/us/song/salaar-cease-fire-telugu-trailer-theme-from-salaar/1724206564.mp3" 
         autoPlay 
         loop 
         controls
-      />
-    {/* <audio src="your-music-file.mp3" autoPlay loop hidden /> */}
+      /> */}
+    <audio src="Sound of Salaar.mp3" autoPlay loop hidden />
       <form onSubmit={handleSubmit}>
         <label id="name" htmlFor="username">Username:</label>
         <input
