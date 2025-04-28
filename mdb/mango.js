@@ -4,6 +4,7 @@ import cors from 'cors'
 // import test from './schemas/students.js';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import ngrok from 'ngrok';
 import tests from './schemas/students.js';
 dotenv.config();
 const PORT = process.env.PORT || 8080;
@@ -24,9 +25,24 @@ console.log('Mongo URL:', process.env.MANGO);
 mongoose.connect(mongo_url)
     .then(() => console.log('MongoDB connected successfully'))
     .catch((err) => console.error('Database connection error:', err));
-app.listen(PORT, () => {
+// app.listen(PORT, () => {
+//     console.log(`Server running on port ${PORT}`);
+// });
+app.listen(PORT, async () => {
     console.log(`Server running on port ${PORT}`);
+
+    // Start ngrok and get the public URL
+    const url = await ngrok.connect({
+        addr: PORT,
+        authtoken: process.env.NGROK_AUTH_TOKEN, // (optional if you have ngrok auth token)
+    });
+
+    console.log(`Ngrok tunnel started at: ${url}`);
+
+    // Save the URL globally inside the app
+    app.set('ngrok_url', url);
 });
+
 // function authenticateToken(req, res, next) {
 //     const token = req.headers[`authorization`];
 //     if (!token) return res.sendStatus(401);
@@ -158,5 +174,20 @@ app.delete('/delete', async (req, res) => {
     } catch (error) {
         console.error('Error during deletion:', error);
         res.status(500).json({ error: 'An error occurred during deletion.' });
+    }
+});
+// app.get('/ngrok-url', (req, res) => {
+//     const url = app.get('ngrok_url');
+//     if (!url) {
+//         return res.status(500).json({ error: 'Ngrok URL not available' });
+//     }
+//     res.json({ url });
+// });
+app.get('/ngrok-url', (req, res) => {
+    const url = app.get('ngrok_url');
+    if (url) {
+        res.json({ url });
+    } else {
+        res.status(404).json({ error: 'Ngrok URL not available yet' });
     }
 });

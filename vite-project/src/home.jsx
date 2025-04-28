@@ -3,6 +3,8 @@ export default function Home() {
         backgroundImage: `url('https://preview.redd.it/alien-romulus-wallpaper-poster-hd-v0-hg1atry5void1.jpg?width=1080&crop=smart&auto=webp&s=e00942a88fbadc121dc96d44427d51ff4dbe3be5')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+        position: 'fixed',
         height: '100vh',
         width: '100vw',
     };
