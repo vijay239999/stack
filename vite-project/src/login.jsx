@@ -53,7 +53,7 @@ export default function Login({ setIsLoggedIn }) {
     <div style={backgroundStyle}>
       
 
-    <audio src="/Sound of Salaar.mp3" autoPlay loop hidden />
+    {/* <audio src="/Sound of Salaar.mp3" autoPlay loop hidden /> */}
       <form onSubmit={handleSubmit}>
         <label id="name" htmlFor="username">Username:</label>
         <input
