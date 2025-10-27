@@ -3,9 +3,9 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import ngrok from 'ngrok';
+// import ngrok from 'ngrok';
 import tests from './schemas/students.js';
-import { spawn } from 'child_process';
+// import { spawn } from 'child_process';
 
 dotenv.config();
 
@@ -28,13 +28,13 @@ mongoose.connect(mongo_url)
 app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
 
-  const url = await ngrok.connect({
-    addr: PORT,
-    authtoken: process.env.NGROK_AUTH_TOKEN,
-  });
+  // const url = await ngrok.connect({
+  //   addr: PORT,
+  //   authtoken: process.env.NGROK_AUTH_TOKEN,
+  // });
 
-  console.log(`Ngrok tunnel started at: ${url}`);
-  app.set('ngrok_url', url);
+  // console.log(`Ngrok tunnel started at: ${url}`);
+  // app.set('ngrok_url', url);
 });
 
 function authenticateToken(req, res, next) {
@@ -126,34 +126,34 @@ app.delete('/delete', async (req, res) => {
   }
 });
 
-app.get('/ngrok-url', (req, res) => {
-  const url = app.get('ngrok_url');
-  if (url) {
-    res.json({ url });
-  } else {
-    res.status(404).json({ error: 'Ngrok URL not available yet' });
-  }
-});
+// app.get('/ngrok-url', (req, res) => {
+//   const url = app.get('ngrok_url');
+//   if (url) {
+//     res.json({ url });
+//   } else {
+//     res.status(404).json({ error: 'Ngrok URL not available yet' });
+//   }
+// });
 
-app.get('/live', (req, res) => {
-  res.set({
-    'Content-Type': 'audio/mpeg',
-    'Transfer-Encoding': 'chunked',
-  });
+// app.get('/live', (req, res) => {
+//   res.set({
+//     'Content-Type': 'audio/mpeg',
+//     'Transfer-Encoding': 'chunked',
+//   });
 
-  const ffmpeg = spawn('ffmpeg', [
-    '-f', 'dshow',
-    '-i', 'audio=VB-Audio Virtual Cable',
-    '-f', 'mp3',
-    'pipe:1',
-  ]);
+  // const ffmpeg = spawn('ffmpeg', [
+  //   '-f', 'dshow',
+  //   '-i', 'audio=VB-Audio Virtual Cable',
+  //   '-f', 'mp3',
+  //   'pipe:1',
+  // ]);
 
-  ffmpeg.stdout.pipe(res);
+//   ffmpeg.stdout.pipe(res);
 
-  req.on('close', () => {
-    ffmpeg.kill('SIGINT');
-  });
-});
+//   req.on('close', () => {
+//     ffmpeg.kill('SIGINT');
+//   });
+// });
 
 // import express from 'express';
 // import mongoose from 'mongoose';
