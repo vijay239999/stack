@@ -68,7 +68,7 @@ function authenticateRoles(roles) {
   };
 }
 
-app.get('/profile/:username', authenticateToken, async (req, res) => {
+app.get('/profile/:username', async (req, res) => {
   try {
     const user = await tests.findOne({ username: req.params.username }, { password: 0 });
     if (!user) return res.status(404).json({ error: 'User not found' });
