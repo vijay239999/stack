@@ -13,10 +13,26 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 
 app.options('*', cors());
+// app.use(cors({
+//   origin: 'https://vstack-675k.onrender.com',
+//   credentials: true,
+// }));
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://vstack-675k.onrender.com'
+];
+
 app.use(cors({
-  origin: 'https://vstack-675k.onrender.com',
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }));
+
 
 app.use(express.json());
 
