@@ -122,8 +122,30 @@ app.post('/admin/login', async (req, res) => {
 
 app.post('/register', async (req, res) => {
   try {
-    const { username, password, email, phone_number } = req.body;
-    const newUser = new tests({ username, password, email, phone_number });
+    const {
+      username,
+      password,
+      email,
+      phone_number,
+      bio,
+      skills,
+      github,
+      profileImage,
+      resumeLink
+    } = req.body;
+
+    const newUser = new tests({
+      username,
+      password,
+      email,
+      phone_number,
+      bio,
+      skills,
+      github,
+      profileImage,
+      resumeLink
+    });
+
     await newUser.save();
     res.status(201).json({ message: 'User registered successfully', user: newUser });
   } catch (error) {
@@ -133,6 +155,20 @@ app.post('/register', async (req, res) => {
     res.status(500).json({ error: 'An error occurred during registration.' });
   }
 });
+
+// app.post('/register', async (req, res) => {
+//   try {
+//     const { username, password, email, phone_number } = req.body;
+//     const newUser = new tests({ username, password, email, phone_number });
+//     await newUser.save();
+//     res.status(201).json({ message: 'User registered successfully', user: newUser });
+//   } catch (error) {
+//     if (error.code === 11000) {
+//       return res.status(400).json({ error: 'Duplicate entry. Use unique values.' });
+//     }
+//     res.status(500).json({ error: 'An error occurred during registration.' });
+//   }
+// });
 
 app.get('/users', authenticateToken, authenticateRoles(['admin', 'user']), async (req, res) => {
   try {
