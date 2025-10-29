@@ -70,13 +70,17 @@ function authenticateRoles(roles) {
 
 app.get('/profile/:username', async (req, res) => {
   try {
-    const user = await tests.findOne({ username: req.params.username }, { password: 0 });
+    const user = await tests.findOne(
+      { username: req.params.username },
+      { password: 0 }
+    );
     if (!user) return res.status(404).json({ error: 'User not found' });
     res.status(200).json(user);
   } catch (err) {
     res.status(500).json({ error: 'Server error' });
   }
 });
+
 
 app.put('/profile/update', authenticateToken, async (req, res) => {
   try {
