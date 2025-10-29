@@ -4,9 +4,11 @@ import Login from './login.jsx';
 import Dashboard from './dashboard.jsx';
 import Delete from './delete.jsx'
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import Home from './home.jsx';
+// import Home from './home.jsx';
 import Register from './registration.jsx';
 import Userdash from './userdash.jsx';
+import ProfilePage from './profileP.jsx';
+
 const App = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -41,7 +43,8 @@ const App = () => {
       )}
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        {/* <Route path="/" element={<Home />} /> */}
+        <Route path="/" element={<ProfilePage replace/>} />
         <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard/*" element={<Dashboard />} />
